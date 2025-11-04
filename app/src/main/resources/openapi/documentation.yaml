@@ -3,7 +3,7 @@ info:
   title: IssueTalk Auth Service
   version: 1.0.0
 servers:
-  - url: http://localhost:8080
+  - url: https://www.issuetalks.com/
 paths:
   /auth/email:
     post:
