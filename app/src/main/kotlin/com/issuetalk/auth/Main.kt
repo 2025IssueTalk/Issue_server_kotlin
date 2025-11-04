@@ -4,6 +4,7 @@ import com.issuetalk.auth.config.AppConfigLoader
 import com.issuetalk.auth.config.DatabaseFactory
 import com.issuetalk.auth.config.RedisFactory
 import com.issuetalk.auth.config.RedisResource
+import com.issuetalk.auth.plugins.configureCors
 import com.issuetalk.auth.plugins.configureExceptionHandling
 import com.issuetalk.auth.plugins.configureMonitoring
 import com.issuetalk.auth.plugins.configureRouting
@@ -52,6 +53,7 @@ fun Application.module() {
 
     configureMonitoring()
     configureSerialization()
+    configureCors()
     configureSecurity(jwtService)
     configureExceptionHandling()
     configureRouting(authService)
