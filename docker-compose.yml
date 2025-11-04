@@ -1,0 +1,51 @@
+services:
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/issuetalk
+      DB_USER: issuetalk
+      DB_PASSWORD: issuetalk
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_DATABASE: 0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: issuetalk
+      POSTGRES_PASSWORD: issuetalk
+      POSTGRES_DB: issuetalk
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U issuetalk -d issuetalk"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+
+volumes:
+  db-data:
+  redis-data:
