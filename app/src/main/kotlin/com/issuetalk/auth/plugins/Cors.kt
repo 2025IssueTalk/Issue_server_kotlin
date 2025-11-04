@@ -10,22 +10,21 @@ fun Application.configureCors() {
     install(CORS) {
         anyHost() // wide-open CORS as requested
         allowCredentials = true
-        allowMethod(HttpMethod.Options)
-        allowMethod(HttpMethod.Get)
-        allowMethod(HttpMethod.Post)
-        allowMethod(HttpMethod.Put)
-        allowMethod(HttpMethod.Delete)
-        allowMethod(HttpMethod.Patch)
         allowHeader(HttpHeaders.Authorization)
         allowHeader(HttpHeaders.ContentType)
         allowHeader(HttpHeaders.Accept)
         allowHeader(HttpHeaders.AccessControlRequestHeaders)
         allowHeader(HttpHeaders.AccessControlRequestMethod)
         allowHeader(HttpHeaders.Origin)
-        allowHeader(HttpHeaders.Referrer)
         allowHeader(HttpHeaders.UserAgent)
-        allowHeadersPrefixed("X-")
-        allowHeader { true }
+        allowHeader("X-Requested-With")
+        allowHeader("X-Csrf-Token")
         exposeHeader(HttpHeaders.Authorization)
+        allowMethod(HttpMethod.Options)
+        allowMethod(HttpMethod.Get)
+        allowMethod(HttpMethod.Post)
+        allowMethod(HttpMethod.Put)
+        allowMethod(HttpMethod.Delete)
+        allowMethod(HttpMethod.Patch)
     }
 }
