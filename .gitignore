@@ -1,0 +1,30 @@
+# macOS
+.DS_Store
+
+# IDEs
+.idea/
+*.iml
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Gradle
+.gradle/
+build/
+out/
+
+# Kotlin/Java build artifacts
+app/build/
+app/.gradle/
+*/build/
+
+# Logs
+*.log
+
+# Misc
+*.swp
+*.swo
+*.orig
+
